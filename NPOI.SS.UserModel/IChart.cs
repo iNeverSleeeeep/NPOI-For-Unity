@@ -1,0 +1,31 @@
+using NPOI.SS.UserModel.Charts;
+using System.Collections.Generic;
+
+namespace NPOI.SS.UserModel
+{
+	/// High level representation of a chart.
+	///
+	/// @author Roman Kashitsyn
+	public interface IChart : ManuallyPositionable
+	{
+		/// @return an appropriate ChartDataFactory implementation
+		IChartDataFactory GetChartDataFactory();
+
+		/// @return an appropriate ChartAxisFactory implementation
+		IChartAxisFactory GetChartAxisFactory();
+
+		/// @return chart legend instance
+		IChartLegend GetOrCreateLegend();
+
+		/// Delete current chart legend.
+		void DeleteLegend();
+
+		/// @return list of all chart axis
+		List<IChartAxis> GetAxis();
+
+		/// Plots specified data on the chart.
+		///
+		/// @param data a data to plot
+		void Plot(IChartData data, params IChartAxis[] axis);
+	}
+}

@@ -1,0 +1,96 @@
+namespace NPOI.SS.UserModel
+{
+	/// Evaluates formula cells.<p />
+	///
+	/// For performance reasons, this class keeps a cache of all previously calculated intermediate
+	/// cell values.  Be sure to call {@link #ClearAllCachedResultValues()} if any workbook cells are Changed between
+	/// calls to Evaluate~ methods on this class.
+	///
+	/// @author Amol S. Deshmukh &lt; amolweb at ya hoo dot com &gt;
+	/// @author Josh Micich
+	public interface IFormulaEvaluator
+	{
+		/// * Perform detailed output of formula evaluation for next evaluation only?
+		/// * Is for developer use only (also developers using POI for their XLS files).
+		/// * Log-Level WARN is for basic info, INFO for detailed information. These quite
+		/// * high levels are used because you have to explicitly enable this specific logging.
+		///
+		/// * @param value whether to perform detailed output
+		bool DebugEvaluationOutputForNextEval
+		{
+			get;
+			set;
+		}
+
+		/// Should be called whenever there are Changes to input cells in the Evaluated workbook.
+		/// Failure to call this method after changing cell values will cause incorrect behaviour
+		/// of the Evaluate~ methods of this class
+		void ClearAllCachedResultValues();
+
+		/// Should be called to tell the cell value cache that the specified (value or formula) cell 
+		/// has Changed.
+		/// Failure to call this method after changing cell values will cause incorrect behaviour
+		/// of the Evaluate~ methods of this class
+		void NotifySetFormula(ICell cell);
+
+		/// Should be called to tell the cell value cache that the specified cell has just become a
+		/// formula cell, or the formula text has Changed 
+		void NotifyDeleteCell(ICell cell);
+
+		/// Should be called to tell the cell value cache that the specified (value or formula) cell
+		/// has changed.
+		/// Failure to call this method after changing cell values will cause incorrect behaviour
+		/// of the evaluate~ methods of this class
+		void NotifyUpdateCell(ICell cell);
+
+		/// If cell Contains a formula, the formula is Evaluated and returned,
+		/// else the CellValue simply copies the appropriate cell value from
+		/// the cell and also its cell type. This method should be preferred over
+		/// EvaluateInCell() when the call should not modify the contents of the
+		/// original cell.
+		/// @param cell
+		CellValue Evaluate(ICell cell);
+
+		/// Loops over all cells in all sheets of the associated workbook.
+		/// For cells that contain formulas, their formulas are evaluated, 
+		///  and the results are saved. These cells remain as formula cells.
+		/// For cells that do not contain formulas, no changes are made.
+		/// This is a helpful wrapper around looping over all cells, and 
+		///  calling evaluateFormulaCell on each one.
+		void EvaluateAll();
+
+		/// If cell Contains formula, it Evaluates the formula,
+		///  and saves the result of the formula. The cell
+		///  remains as a formula cell.
+		/// Else if cell does not contain formula, this method leaves
+		///  the cell unChanged.
+		/// Note that the type of the formula result is returned,
+		///  so you know what kind of value is also stored with
+		///  the formula.
+		/// <pre>
+		/// int EvaluatedCellType = Evaluator.evaluateFormulaCell(cell);
+		/// </pre>
+		/// Be aware that your cell will hold both the formula,
+		///  and the result. If you want the cell Replaced with
+		///  the result of the formula, use {@link #EvaluateInCell(Cell)}
+		/// @param cell The cell to Evaluate
+		/// @return The type of the formula result (the cell's type remains as Cell.CELL_TYPE_FORMULA however)
+		CellType EvaluateFormulaCell(ICell cell);
+
+		/// If cell Contains formula, it Evaluates the formula, and
+		///  Puts the formula result back into the cell, in place
+		///  of the old formula.
+		/// Else if cell does not contain formula, this method leaves
+		///  the cell unChanged.
+		/// Note that the same instance of Cell is returned to
+		/// allow chained calls like:
+		/// <pre>
+		/// int EvaluatedCellType = Evaluator.evaluateInCell(cell).getCellType();
+		/// </pre>
+		/// Be aware that your cell value will be Changed to hold the
+		///  result of the formula. If you simply want the formula
+		///  value comPuted for you, use {@link #EvaluateFormulaCell(Cell)}
+		/// @param cell
+		ICell EvaluateInCell(ICell cell);
+	}
+}

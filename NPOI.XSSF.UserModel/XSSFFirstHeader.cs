@@ -1,0 +1,42 @@
+using NPOI.OpenXmlFormats.Spreadsheet;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel.Extensions;
+
+namespace NPOI.XSSF.UserModel
+{
+	/// First page header content. Corresponds to first printed page.
+	/// The first logical page in the sheet may not be printed, for example, if the print area is specified to 
+	/// be a range such that it falls outside the first page's scope.
+	public class XSSFFirstHeader : XSSFHeaderFooter, IHeader, IHeaderFooter
+	{
+		/// Get the content text representing this header
+		/// @return text
+		public override string Text
+		{
+			get
+			{
+				return GetHeaderFooter().firstHeader;
+			}
+			set
+			{
+				if (value == null)
+				{
+					GetHeaderFooter().firstHeader = null;
+				}
+				else
+				{
+					GetHeaderFooter().firstHeader = value;
+				}
+			}
+		}
+
+		/// Create an instance of XSSFFirstHeader from the supplied XML bean
+		/// @see XSSFSheet#getFirstHeader()
+		/// @param headerFooter
+		public XSSFFirstHeader(CT_HeaderFooter headerFooter)
+			: base(headerFooter)
+		{
+			headerFooter.differentFirst = true;
+		}
+	}
+}

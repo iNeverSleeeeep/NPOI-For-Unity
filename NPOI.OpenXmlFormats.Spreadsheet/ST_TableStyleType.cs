@@ -1,0 +1,34 @@
+namespace NPOI.OpenXmlFormats.Spreadsheet
+{
+	public enum ST_TableStyleType
+	{
+		wholeTable,
+		headerRow,
+		totalRow,
+		firstColumn,
+		lastColumn,
+		firstRowStripe,
+		secondRowStripe,
+		firstColumnStripe,
+		secondColumnStripe,
+		firstHeaderCell,
+		lastHeaderCell,
+		firstTotalCell,
+		lastTotalCell,
+		firstSubtotalColumn,
+		secondSubtotalColumn,
+		thirdSubtotalColumn,
+		firstSubtotalRow,
+		secondSubtotalRow,
+		thirdSubtotalRow,
+		blankRow,
+		firstColumnSubheading,
+		secondColumnSubheading,
+		thirdColumnSubheading,
+		firstRowSubheading,
+		secondRowSubheading,
+		thirdRowSubheading,
+		pageFieldLabels,
+		pageFieldValues
+	}
+}

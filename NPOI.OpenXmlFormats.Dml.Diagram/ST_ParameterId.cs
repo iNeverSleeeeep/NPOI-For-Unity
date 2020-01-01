@@ -1,0 +1,66 @@
+using System;
+using System.Xml.Serialization;
+
+namespace NPOI.OpenXmlFormats.Dml.Diagram
+{
+	[Serializable]
+	[XmlType(Namespace = "http://schemas.openxmlformats.org/drawingml/2006/diagram")]
+	public enum ST_ParameterId
+	{
+		horzAlign,
+		vertAlign,
+		chDir,
+		chAlign,
+		secChAlign,
+		linDir,
+		secLinDir,
+		stElem,
+		bendPt,
+		connRout,
+		begSty,
+		endSty,
+		dim,
+		rotPath,
+		ctrShpMap,
+		nodeHorzAlign,
+		nodeVertAlign,
+		fallback,
+		txDir,
+		pyraAcctPos,
+		pyraAcctTxMar,
+		txBlDir,
+		txAnchorHorz,
+		txAnchorVert,
+		txAnchorHorzCh,
+		txAnchorVertCh,
+		parTxLTRAlign,
+		parTxRTLAlign,
+		shpTxLTRAlignCh,
+		shpTxRTLAlignCh,
+		autoTxRot,
+		grDir,
+		flowDir,
+		contDir,
+		bkpt,
+		off,
+		hierAlign,
+		bkPtFixedVal,
+		stBulletLvl,
+		stAng,
+		spanAng,
+		ar,
+		lnSpPar,
+		lnSpAfParP,
+		lnSpCh,
+		lnSpAfChP,
+		rtShortDist,
+		alignTx,
+		pyraLvlNode,
+		pyraAcctBkgdNode,
+		pyraAcctTxNode,
+		srcNode,
+		dstNode,
+		begPts,
+		endPts
+	}
+}
